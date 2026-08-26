@@ -1,36 +1,5 @@
 """Lorenz 96 case (a) EKI driver under EKI_algorithm_spec_2026-08-23 (parallel).
-
-Origin: 1. Reproduce_papers/Lorenz96/code/spec_case_a.py
-Changes vs origin:
-- rewired to the shared algorithms package: eki_spec.run_eki_spec ->
-  algorithms.eki.run_eki (ensemble_evaluator pattern, stop_rel_tol=PHI_TOL,
-  stop_patience=1, perturb_observations=True, jitter_mode="absolute" with
-  jitter=1e-8 -- the same gain solve C^GG + Gamma + 1e-8 I as the origin);
-  eki_spec.build_gamma/calibrate_n_g/clip_latent/crn_seeds -> algorithms.gamma
-  and algorithms.eki; parameterization -> algorithms.parameterization;
-- the CRN seed set S(n, r) is now drawn inside the case evaluator via
-  algorithms.eki.crn_seeds (identical arithmetic) and recorded case-side, so
-  the saved seeds_history is unchanged in meaning;
-- the Phi path is bit-identical to the origin loop: Phi is computed by
-  Cholesky whitening with the exact Gamma (the eki_spec._phi construction, no
-  regularisation -- the jitter conditions the Kalman-gain solve only), so
-  reported Phi values reproduce the origin exactly given identical forward
-  outputs;
-- one engine-level difference vs the origin loop, documented: when the run
-  exhausts n_iter, the shared engine evaluates the final post-update ensemble
-  once more, so phi_history gains one entry and phi_final then refers to the
-  REPORTED final ensemble (the origin left that ensemble unevaluated); on a
-  phi_tol stop the histories match the origin one for one.  "iterations_run"
-  therefore counts ensemble evaluations (equal to the origin's count on a
-  phi_tol stop);
-- the near-optimum N_G probe parameter is embedded as a constant (the frozen
-  v12 production fit) instead of being loaded from the reproduction tree's
-  result_data, so this release is self-contained;
-- comments translated/tightened; spec constants, seeds, worker layout, saved
-  arrays, and the summary schema unchanged.  No figures are produced anywhere
-  in this release (the origin produced none either).
-
-Spec configuration (EKI_algorithm_spec_2026-08-23.md):
+Spec configuration:
 
   y        : ONE reference record of length T_y (seed S0+1000), after T_burn
   Gamma    : the FULL sample covariance of N_Gamma independent reference
