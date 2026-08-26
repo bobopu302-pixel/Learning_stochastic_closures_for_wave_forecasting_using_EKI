@@ -1,21 +1,5 @@
 """Dimension-agnostic Gaussian-process conditional mean for learned closures.
 
-Origin: 1. Reproduce_papers/common/code/gpr.py (1-D RBF construction,
-``make_gp_mean_function``) and 3. KDV_nonlinear_case/sw_eki_h.py lines
-~130-160 (2-D product-RBF ``GPSurface``).
-Changes vs origin:
-- unified into one ``make_gp_mean(nodes, values, amplitude, lengthscales,
-  nugget)`` covering both constructions: nodes (R,) or (R, d), lengthscales
-  scalar or (d,) (anisotropic product RBF);
-- the returned callable accepts either one point/array argument or d
-  broadcastable coordinate arrays (the GPSurface calling style);
-- scalar queries return a Python float (the 1-D origin behaviour; GPSurface
-  returned a 0-d array of the same value);
-- ``make_gp_mean_from_theta`` keeps the origin's packed-vector entry point
-  (values | nugget | amplitude | lengthscale(s), the (v, tau, a, ell) order);
-- validation errors (finite, strictly positive hyper-parameters) kept from
-  both sources; numerics of the kernel and the representer solve identical.
-
 Modelling notes
 ---------------
 - The node ``values`` are FREE PARAMETERS estimated by EKI, not data: they
