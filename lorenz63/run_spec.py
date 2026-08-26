@@ -71,11 +71,7 @@ INVARIANT_T, INVARIANT_BURN = 5000.0, 100.0
 
 FIT_NAMES = ("fixed_ode", "fixed_sde", "gp_ode", "gp_sde")
 
-# Near-optimum probe parameters: the final-ensemble means of the archived
-# 2026-08-23 paper run (1. Reproduce_papers/Lorenz63/result_data/
-# 20260823T140932127263Z_paper_8ad6802b51/learned_parameters.npz), embedded so
-# this release does not depend on that archive.  Raw (physical) coordinates;
-# GP layout [node values (5) | nugget | amplitude | lengthscale (| sqrt(sigma))].
+# Near-optimum probe parameters: the final-ensemble means of the archived paper run 
 NEAR_OPTIMUM_RAW = {
     "fixed_ode": [10.405237346138554],
     "fixed_sde": [9.920225667086427, 3.2810541046120396],
