@@ -14,12 +14,11 @@ estimated by ensemble Kalman inversion (EKI):
     dp_j = (-omega_j^2 q_j - delta_j p_j) dt + sqrt(sigma_j) dW_j,
     omega_j^2 = g k_j tanh(k_j h).
 
-This release ships the **2026-08-23 spec configuration actually used in the
+This release ships the ** spec configuration actually used in the
 thesis** and nothing else: log-space positive parameters, common random
 numbers, `G_hat` = mean of `N_G` forward runs, `Gamma = diag(var_ref)` from
 independent reference records (no forward term, no floor), final-ensemble-mean
-reporting, and the 1%-for-3-iterations stopping rule.  Legacy code paths were
-deleted, not disabled; each module's docstring records what was removed.
+reporting, and the 1%-for-3-iterations stopping rule. each module's docstring records what was removed.
 
 The EKI engine, the diagonal-Gamma estimator and the statistic estimator
 primitives come from the shared package `code_rp/algorithms/`
