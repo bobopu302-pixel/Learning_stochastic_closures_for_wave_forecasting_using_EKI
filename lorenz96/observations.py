@@ -1,18 +1,4 @@
 """Case (a) observation vector, theta packing, and prior ensemble for Lorenz 96.
-
-Origin: 1. Reproduce_papers/Lorenz96/code/lorenz96_common.py
-Changes vs origin:
-- extracted the case-definition helpers only: case_a_statistics,
-  unpack_theta_parts, initial_ensemble, positive_parameter_indices;
-- the estimator primitive now comes from algorithms.statistics
-  (centered_first_second_moments) and the GP block indices from
-  algorithms.parameterization (gp_positive_indices) -- both call-compatible
-  with the originals;
-- deleted the case-(b) statistic assembler (component_lorenz96_stats path) and
-  the output_mean_and_spread / output_objective display helpers used only by
-  the legacy bundle/figure pipeline -- this release ships the 2026-08-23 spec
-  configuration for case (a) only;
-- comments translated/tightened; numerics untouched.
 """
 
 from __future__ import annotations
