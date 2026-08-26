@@ -1,8 +1,5 @@
 """Log-space encoding of strictly positive parameters for EKI.
 
-Origin: 1. Reproduce_papers/common/code/parameterization.py
-Changes vs origin: comments/docstrings only -- numerics identical.
-
 EKI evolves parameters in an unconstrained latent space.  Strictly positive
 physical parameters (noise scales, GP amplitude/length scales, damping rates)
 are therefore evolved as their logarithms: ``log_encode`` maps physical ->
