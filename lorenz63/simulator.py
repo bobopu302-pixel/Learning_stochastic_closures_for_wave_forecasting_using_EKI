@@ -1,14 +1,5 @@
 """Euler-Maruyama simulator for the noisy Lorenz 63 system (simulation library only).
 
-Origin: 1. Reproduce_papers/Lorenz63/code/run_lorenz63.py
-Changes vs origin:
-- extracted ONLY the simulation library (lorenz63_drift, _sim_core,
-  simulate_lorenz63, _simulate_lorenz63_python and their constants); the
-  legacy experiment driver (main, EKI fits, bundle/figure assembly) and its
-  lorenz_plots / covariance / protocol / run_manifest imports were dropped --
-  the 2026-08-23 spec driver in run_spec.py replaces them;
-- comments/docstrings polished; simulation numerics untouched.
-
 Model: additive-noise Lorenz 63
 
     dx1 = alpha (x2 - x1) dt                     + sqrt(sigma) dW1
