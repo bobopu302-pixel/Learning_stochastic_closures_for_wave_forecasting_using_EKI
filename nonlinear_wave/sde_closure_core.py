@@ -1,9 +1,4 @@
 """Stochastic extension of the frozen implicit-midpoint vKdV solver.
-
-Origin: 3. KDV_nonlinear_case/sde_closure_core.py
-Changes vs origin: comments/docstrings only (one Chinese design-note
-reference translated; this provenance header added).
-
 This module adds additive noise to the *unchanged* coarse-grid deterministic
 solver chain (`CoastalHighOrderImplicitMidpointDABCSolver`) without editing
 any frozen production file.  The stochastic step follows the conservative

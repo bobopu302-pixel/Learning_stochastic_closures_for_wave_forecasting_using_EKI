@@ -1,8 +1,4 @@
 """Three-trace modal incident lifting for the C6/C4--CN KdV discretisation.
-
-Origin: 3. KDV_nonlinear_case/high_order_incident_lifting.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 The physical boundary supplies one real, mean-zero, periodic stationary record
 ``g(T)`` at the offshore node.  Its positive-frequency Fourier coefficients
 are extracted once.  For every retained angular frequency ``omega``, the

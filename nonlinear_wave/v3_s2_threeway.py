@@ -1,17 +1,4 @@
 """Three-way physical comparison for S2, plus the nonlinearity-signal test.
-
-Origin: 3. KDV_nonlinear_case/v3_s2_threeway.py
-Changes vs origin:
-- deleted the four matplotlib figures (D7 profiles, D8 invariant, D9
-  spectra, D10 nonlinearity signal) -- this release ships no plotting.
-  threeway_data.npz keeps its origin layout; the data that only existed
-  inside the D8/D9 figure loops (per-gauge invariant-measure histograms
-  and spectra of all four field sets) is now saved to a NEW companion
-  file threeway_pdf_spectra.npz; the D10 displacement curves and the
-  recovered-fraction numbers were already printed and are additionally
-  stored in threeway_data.npz under d10_* keys (additive keys only);
-- comments/docstrings translated and polished.
-
 Compares four fields on identical statistics, computed the same way for
 all of them so the comparison needs no reference to the inversion's own
 statistic definitions:

@@ -1,8 +1,4 @@
 """v3 twin world -- env-driven patcher aligning Chapter-5 conventions with Chapter 4.
-
-Origin: 3. KDV_nonlinear_case/v3_world.py
-Changes vs origin: comments/docstrings only.
-
 This module is LOAD-BEARING for the whole spec chain: every driver must
 ``import v3_world`` and call ``v3_world.ensure_patched()`` AFTER setting the
 ``SDE_*`` / ``SW_*`` environment variables and BEFORE the first import of any

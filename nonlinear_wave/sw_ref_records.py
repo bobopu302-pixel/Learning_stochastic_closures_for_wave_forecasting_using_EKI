@@ -1,19 +1,4 @@
 """Independent truth reference records for the spec Gamma (stage 1).
-
-Origin: 3. KDV_nonlinear_case/sw_ref_records.py
-Changes vs origin:
-- deleted the legacy shared-sea-state record path (_one_record): the spec
-  chain always runs with SW_REF_NEW_SEA_STATE=1, where every reference
-  record is a fresh realisation of the WHOLE truth process (own incident
-  phases, own deterministic baseline, own closure noise); launching
-  without that flag now fails loudly instead of silently producing the
-  pre-spec Gamma records;
-- removed the unused `import sde_closure_eki as base` (the import-order
-  side effect is already provided by importing sw_eki_s1);
-- comments/docstrings translated and polished; the resumable per-record
-  cache, the finished-product short-circuit and every npz/json output are
-  kept unchanged.
-
 Generates N_Gamma independent realisations of the S1a twin truth process,
 evaluates the statistic vector on each record with the same pipeline as
 the official observation y, and stores ONLY the statistics (small) under

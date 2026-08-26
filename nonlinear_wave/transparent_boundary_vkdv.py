@@ -1,15 +1,4 @@
 """Open-boundary solvers and verification tests for the coastal vKdV study.
-
-Origin: 3. KDV_nonlinear_case/transparent_boundary_vkdv.py
-Changes vs origin (numerics untouched):
-* matplotlib imports and the figure blocks at the end of the four
-  validation runners (run_constant_depth_validation,
-  run_discrete_abc_validation, run_coastal_pulse_validation,
-  run_coastal_truth) deleted (release ships no plotting); every
-  metrics.json / .npy / .csv data save is preserved;
-* the fine_profile collection in run_discrete_abc_validation deleted
-  (it only fed the deleted figure).
-
 The production solver assembled from :mod:`pde_core` is deliberately left
 unchanged.  This module develops the open-boundary replacement in verifiable
 stages.  The first stage solves the constant-coefficient linearised KdV

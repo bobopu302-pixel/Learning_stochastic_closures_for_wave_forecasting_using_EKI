@@ -1,8 +1,4 @@
 """Closure-chain configuration switch (v2 frozen baseline vs v3 upgrade).
-
-Origin: 3. KDV_nonlinear_case/sde_closure_config.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 The upgraded deterministic core (decided 2026-07-25) is the DEFAULT for
 every closure script; set ``SDE_CLOSURE_V3=0`` only to reproduce archived
 legacy-core runs.  The core:

@@ -1,21 +1,4 @@
 """Final physical-time coastal vKdV production driver.
-
-Origin: 3. KDV_nonlinear_case/coastal_entropy_midpoint_production.py
-Changes vs origin (numerics untouched; this remains the reference PDE
-production driver):
-* matplotlib imports, colour constants, DOMAIN_FOOTER and the five
-  figure functions (_plot_bathymetry_and_boundary, _plot_xt,
-  _plot_colour_3d, _plot_waterfall, _plot_diagnostics) deleted along
-  with their call sites (release ships no plotting); the replot npz,
-  every CSV, metrics.json, manifest.json, the Markdown report and the
-  post-run audit are all still written;
-* _exact_modal_spectrum deleted (its only consumer was a deleted
-  figure); the vacuous 'plots_exclude_4_to_10km_guard' gate dropped;
-* note: the frozen_Exp14_to_Exp17 tree gates audit archived result
-  trees that are NOT shipped in this release, so they report
-  file_count=0 / False here; that is expected and does not affect the
-  numerical gates.
-
 The driver *directly* reuses the validated
 ``CoastalHighOrderImplicitMidpointDABCSolver``.  It does not alter or write to
 Experiments 14--17.  The reported physical interval is x in [0, 4] km, with

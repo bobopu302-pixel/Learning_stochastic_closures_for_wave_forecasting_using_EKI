@@ -1,12 +1,4 @@
 """N_G calibration -- EKI_algorithm_spec_2026-08-23, section 1.3 (stage 2).
-
-Origin: 3. KDV_nonlinear_case/v3_calibrate_ng.py
-Changes vs origin:
-- removed the unused `import sde_closure_eki as base` (import-order side
-  effects are provided by importing sw_eki_s1 first);
-- comments/docstrings translated and polished; the calibration logic and
-  both outputs (NG_calibration.json, NG_calibration_stats.npz) unchanged.
-
 Procedure:
 
     for k = 1 .. K:  F_k = stats(forward run at theta_probe, length T_G)

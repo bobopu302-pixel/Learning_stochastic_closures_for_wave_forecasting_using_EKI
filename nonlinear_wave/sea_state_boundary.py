@@ -1,8 +1,4 @@
 """Exact prescribed finite-depth TMA boundary for the coastal vKdV PDE.
-
-Origin: 3. KDV_nonlinear_case/sea_state_boundary.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 The module generates one complete random-phase sea-surface record from a
 finite-depth TMA spectrum.  The random seed is fixed, so the prescribed
 boundary is a deterministic and reproducible function in every PDE run.

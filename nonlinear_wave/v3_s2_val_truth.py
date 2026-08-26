@@ -1,10 +1,4 @@
 """Forward validation paths at the TRUE (or zero) S2 parameters.
-
-Origin: 3. KDV_nonlinear_case/v3_s2_val_truth.py
-Changes vs origin:
-- dropped the MPLBACKEND setdefault (nothing in this release plots);
-- comments/docstrings only otherwise (this script never plotted).
-
 Companion to v3_s2_validation.py: runs the same realisations, with the
 same noise seeds, but with the truth's GP nodes, p = -1/2 and the true
 noise parameters.  Saves `validation_fields_truth.npz` (or `_zero.npz`)

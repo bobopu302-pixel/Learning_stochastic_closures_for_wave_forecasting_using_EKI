@@ -1,13 +1,4 @@
 """Twin-truth generation for the Chapter-5 vKdV spec chain (stage 1).
-
-Origin: 3. KDV_nonlinear_case/sw_truth.py
-Changes vs origin:
-- deleted the S1b (spline-amplitude) truth variant: the 2026-08-23 spec
-  chain observes only the S1a terrain-law truth, and the spline knots were
-  read from a legacy results directory that this release does not ship;
-- comments/docstrings translated and polished; all npz/json outputs and
-  the SW_GRID / SW_FINE environment tiers are kept unchanged.
-
 Generates the KNOWN-phi stochastic vKdV truth bundle that both steps of
 the stepwise ladder observe:
 

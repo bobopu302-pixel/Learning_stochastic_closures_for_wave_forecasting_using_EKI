@@ -1,17 +1,4 @@
 """Dense-observation EKI experiment (frozen chain untouched).
-
-Origin: 3. KDV_nonlinear_case/sde_closure_eki_dense.py
-Changes vs origin (numerics untouched):
-* the legacy standalone main(), its CONFIGS table and the __main__
-  hook DELETED: they contained figure code and are never called by
-  the 2026-08-23 spec chain (the sw_* drivers import this module as
-  a library); imports and colour constants used only by main()
-  removed with it;
-* every symbol the drivers import is kept: DENSE_X_M, N_DENSE,
-  CONCENTRATED_KNOT_Y_M, the SDE_DENSE_KNOTS import-time knot patch,
-  compute_statistics_dense, truth_statistics_and_blocks_dense,
-  build_gamma_dense, _init_worker_dense, forward_statistics_dense.
-
 Tests whether the closure's spatial information bottleneck is the
 observation vector: the standard 44-dim vector samples the Hs profile at
 8 stations and the baseline-deviation rms at 5 gauges (500--1000 m

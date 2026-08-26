@@ -1,15 +1,4 @@
 """Experiment 14: validate the isolated high-order linear variable-depth solver.
-
-Origin: 3. KDV_nonlinear_case/high_order_variable_depth_dabc_study.py
-Changes vs origin (numerics untouched):
-* matplotlib imports, the colour constants and the three figure
-  functions (_plot_operator_summary, _plot_extended_summary,
-  _plot_refinement) deleted, together with their call sites and the
-  'figures'/matplotlib entries in metrics.json and manifest.json
-  (release ships no plotting); all data saving is preserved;
-* the Chinese Markdown report emitted by _write_report translated to
-  English (same numbers and structure).
-
 The default study is deliberately staged.  It first checks the variable-depth
 operator against an analytic manufactured reference and verifies exact
 constant-depth degeneration.  Only then does it run the 4 km candidate against

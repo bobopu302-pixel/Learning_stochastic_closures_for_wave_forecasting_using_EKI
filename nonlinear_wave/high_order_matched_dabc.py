@@ -1,8 +1,4 @@
 """Fourth-order centered KdV operator with its matched CN discrete boundary.
-
-Origin: 3. KDV_nonlinear_case/high_order_matched_dabc.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 This module is deliberately isolated from the production variable-depth solver.
 It implements the constant-coefficient linear equation
 

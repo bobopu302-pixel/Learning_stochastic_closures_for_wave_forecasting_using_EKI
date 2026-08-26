@@ -1,11 +1,4 @@
 """Write S1's summary.json from the per-iteration audit files.
-
-Origin: 3. KDV_nonlinear_case/v3_s1_finalise.py
-Changes vs origin:
-- dropped the MPLBACKEND setdefault (nothing in this release plots);
-- comments/docstrings only otherwise (spec-only sw_eki_s1 always has
-  SPEC=True, so the log-phi decode branch is unconditional).
-
 Used when the run is stopped at a fixed iteration count instead of by the
 spec's stop rule: with N_G realisations per evaluation and fresh common
 random numbers each iteration, Phi keeps a Monte-Carlo fluctuation of a

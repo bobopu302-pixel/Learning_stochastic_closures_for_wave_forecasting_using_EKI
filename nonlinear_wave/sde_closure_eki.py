@@ -1,16 +1,4 @@
 """EKI v2: upgraded calibration of the coarse-grid stochastic vKdV closure.
-
-Origin: 3. KDV_nonlinear_case/sde_closure_eki.py
-Changes vs origin (numerics untouched):
-* the legacy standalone main() and its __main__ hook DELETED: they
-  contained figure code and are never called by the 2026-08-23 spec
-  chain (the sw_* drivers import this module as a library); the
-  imports and colour constants used only by main() removed with it;
-* every symbol the drivers import is kept: theta_layout, decode_theta,
-  clip_ensemble, initial_ensemble, build_envelope_weight, demeaned_acf,
-  compute_statistics, _init_worker_with, forward_statistics,
-  truth_statistics_and_blocks, build_gamma, module constants, _CTX.
-
 Upgrades over the retired v1 EKI driver (this v2 content now carries the
 `sde_closure_eki.py` name), addressing improvement points 3 (observation
 design), 4 (forward noise / collapse control), and 2 (scheme-A envelope

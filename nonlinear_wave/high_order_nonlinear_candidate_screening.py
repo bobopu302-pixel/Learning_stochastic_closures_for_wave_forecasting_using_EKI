@@ -1,15 +1,4 @@
 """Experiment 16: non-production screening of nonlinear vKdV candidates.
-
-Origin: 3. KDV_nonlinear_case/high_order_nonlinear_candidate_screening.py
-Changes vs origin (numerics untouched):
-* matplotlib imports, the colour constants and the two figure
-  functions (_plot_validation, _plot_tma_screening) deleted, together
-  with their call sites and the 'figures'/matplotlib entries in
-  metrics.json and manifest.json (release ships no plotting); all
-  data saving is preserved;
-* the Chinese Markdown report emitted by _report_text translated to
-  English (same numbers and structure).
-
 The frozen Experiment-14/15 files are read-only inputs.  This script screens
 the isolated C6 entropy/split nonlinear drift implemented in
 ``high_order_nonlinear_candidates.py`` while retaining the Experiment-15

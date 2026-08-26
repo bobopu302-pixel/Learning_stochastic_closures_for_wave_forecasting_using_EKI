@@ -1,10 +1,4 @@
 """Write S2's summary.json from the per-iteration audit files.
-
-Origin: 3. KDV_nonlinear_case/v3_s2_finalise.py
-Changes vs origin:
-- dropped the MPLBACKEND setdefault (nothing in this release plots);
-- comments/docstrings only otherwise.
-
 Same role as v3_s1_finalise.py: the run is stopped at a fixed iteration
 count (the spec's stop rule cannot trigger under the Monte-Carlo noise of
 Phi), so the summary is assembled from the audit files and records the

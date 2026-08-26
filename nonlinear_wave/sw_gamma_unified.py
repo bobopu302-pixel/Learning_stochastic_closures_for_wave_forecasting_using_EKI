@@ -1,8 +1,4 @@
 """Unified y / G / Gamma convention for the vKdV (Chapter 5) EKI drivers.
-
-Origin: 3. KDV_nonlinear_case/sw_gamma_unified.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 Implements ``4. Dissertation/Dissertation_writting/UNIFY_y_G_Gamma_spec.md``
 (author decisions of 2026-08-16) WITHOUT touching the frozen
 sde_closure_* files:

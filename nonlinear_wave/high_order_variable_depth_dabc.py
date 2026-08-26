@@ -1,8 +1,4 @@
 """High-order variable-depth vKdV solvers with a matched linear DABC.
-
-Origin: 3. KDV_nonlinear_case/high_order_variable_depth_dabc.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 The shoreward coordinate is ``y = L - x``: ``y=0`` is the offshore inflow
 and ``y=L`` is the nearshore outflow.  In dimensionless surface variables,
 

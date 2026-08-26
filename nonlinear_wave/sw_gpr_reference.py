@@ -1,13 +1,4 @@
 """GPR reference track: nonlinear-tendency regression from twin fields.
-
-Origin: 3. KDV_nonlinear_case/sw_gpr_reference.py
-Changes vs origin:
-- deleted the matplotlib slice figure (gpr_surface.png) at the end of
-  main(); the figure's data (bin grid, bin means, counts, sigma of the
-  mean) is all in surface.npz, which is kept unchanged;
-- comments/docstrings translated and polished; the machinery test, the
-  reference bundles and calibration.json/surface.npz outputs are kept.
-
 Turns the nonlinear-term learning into a REGRESSION problem (only
 possible in the twin setting where full fields are stored):
 

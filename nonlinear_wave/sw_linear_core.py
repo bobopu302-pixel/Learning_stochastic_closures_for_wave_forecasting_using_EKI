@@ -1,8 +1,4 @@
 """Linear vKdV core solver for the stepwise ladder (Step 2 world).
-
-Origin: 3. KDV_nonlinear_case/sw_linear_core.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 The Step-2 world deletes the vKdV nonlinearity; ``LambdaFluxSolver`` is
 the frozen implicit-midpoint solver with a generalised entropy-split
 flux -S d^{-1/2}(1/3)[lambda'(u) u_y + 2 (lambda(u))_y] in place of the

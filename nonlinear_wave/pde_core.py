@@ -1,8 +1,4 @@
 """Core deterministic operators for the physical-time coastal vKdV model.
-
-Origin: 3. KDV_nonlinear_case/pde_core.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 This module contains only the PDE state definition, bathymetry, non-periodic
 finite-difference helpers, and the legacy IMEX-BDF2 verification solver.  The
 final production calculation uses the high-order implicit-midpoint solver

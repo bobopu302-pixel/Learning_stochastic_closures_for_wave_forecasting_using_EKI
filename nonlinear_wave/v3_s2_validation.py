@@ -1,25 +1,4 @@
 """S2 results: learned nonlinear surface + physical validation (data only).
-
-Origin: 3. KDV_nonlinear_case/v3_s2_validation.py
-Changes vs origin:
-- deleted the five matplotlib figures (surface slices, convergence,
-  invariant measure, spectra, profiles) -- this release ships no plotting.
-  The compute behind them is kept and saved as data:
-    analysis/validation_fields.npz    (unchanged, as origin)
-    analysis/s2_surface_slices.npz    (NEW: ensemble mean/sd of the
-                                      learned m(u,s) on the plotted
-                                      slices, the bilinear truth, and the
-                                      GPR reference bins)
-    analysis/s2_convergence.npz       (NEW: Phi histories and the
-                                      per-parameter-group ensemble
-                                      spreads per iteration)
-    analysis/validation_profiles.npz  (NEW: Hs / devrms / increment /
-                                      kurtosis of each model path with
-                                      the observed y and reference
-                                      spreads, plus per-gauge PSDs)
-- dropped the MPLBACKEND setdefault and the gaussian_filter1d import;
-- comments/docstrings translated and polished.
-
 Usage (spec chain)::
 
     SW_FINE=1 SW_VERSION_DIR=v3spec SW_DURATION_S=6600 \

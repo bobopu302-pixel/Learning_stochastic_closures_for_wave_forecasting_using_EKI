@@ -1,8 +1,4 @@
 """Isolated nonlinear discretisation candidates for Experiment 16 screening.
-
-Origin: 3. KDV_nonlinear_case/high_order_nonlinear_candidates.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 This module is intentionally separate from the frozen Experiment-14/15
 solvers.  None of the classes here is a production solver.  They reuse the
 same linear C6-D1/C4-D3 operator, Crank--Nicolson/Adams--Bashforth time step,

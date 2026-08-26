@@ -1,21 +1,4 @@
 """Physical validation of the S1 posterior: fresh-seed paths vs the truth.
-
-Origin: 3. KDV_nonlinear_case/v3_s1_validation.py
-Changes vs origin:
-- deleted the three matplotlib figure blocks (invariant measure, spectra,
-  profile panels) -- this release ships no plotting.  The compute behind
-  them is kept, and the derived statistics that only existed inside the
-  figure code are now SAVED instead of drawn:
-    analysis/validation_fields.npz    (unchanged, as origin)
-    analysis/validation_profiles.npz  (NEW: Hs / devrms / skew / kurt of
-                                      each model path, the observed y
-                                      values and the reference-record
-                                      spreads used as error bars, plus
-                                      the per-gauge PSDs)
-- dropped the MPLBACKEND setdefault and the scipy gaussian_filter1d import
-  (both only served the figures);
-- comments/docstrings translated and polished.
-
 Runs `--paths` SINGLE realisations at the reported parameters (final
 ensemble mean) with seeds disjoint from y, Gamma and the EKI, keeps the
 gauge time series, and compares against the truth record.  Where the

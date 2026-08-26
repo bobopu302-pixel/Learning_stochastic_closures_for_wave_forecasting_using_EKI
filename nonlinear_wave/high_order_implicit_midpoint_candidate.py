@@ -1,8 +1,4 @@
 """Entropy-C6 nonlinear implicit-midpoint candidate for vKdV screening.
-
-Origin: 3. KDV_nonlinear_case/high_order_implicit_midpoint_candidate.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 The candidate retains the frozen C6-D1/C4-D3 Crank--Nicolson linear system,
 three incident traces and three linear DABC rows.  It replaces explicit AB
 nonlinear history by the fully centred step

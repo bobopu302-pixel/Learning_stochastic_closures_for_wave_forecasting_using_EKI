@@ -1,8 +1,4 @@
 """Shared infrastructure for the final stochastic-closure chain.
-
-Origin: 3. KDV_nonlinear_case/sde_closure_context.py
-Changes vs origin: comments/docstrings only (this provenance header added).
-
 Holds the coarse-grid model context (grid, bathymetry, boundary lifting,
 solver factory), the closure run configuration, and the official-baseline
 loader.  All final entry scripts (EKI, validation, cross-seed, sweep,

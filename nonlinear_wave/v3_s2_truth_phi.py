@@ -1,10 +1,4 @@
 """Phi at the TRUE S2 parameters -- the target the inversion can reach.
-
-Origin: 3. KDV_nonlinear_case/v3_s2_truth_phi.py
-Changes vs origin:
-- dropped the MPLBACKEND setdefault (nothing in this release plots);
-- comments/docstrings only otherwise (this script never plotted).
-
 Builds theta with the truth's GP nodes (m(u,s) = -(3 eps/2) s0 u s), the
 true depth exponent p = -1/2 and the true noise parameters, evaluates
 G_hat as the run does (mean of N_G realisations with the same CRN seed
