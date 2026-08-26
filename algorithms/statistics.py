@@ -1,21 +1,6 @@
 """Shared estimator primitives: the statistics every case builds its data
 vector y and forward output G(theta) from.
 
-Origin: 2.Linear_wave_case/modal_closure/numerics.py (normalized_autocorr,
-gauge_acf, xcorr_pair, cross_corr, band_energy_spectrum),
-3. KDV_nonlinear_case/sde_closure_eki.py (demeaned_acf), and
-1. Reproduce_papers/common/code/summary_statistics.py (as_2d_samples,
-centered/raw first-second moment vectors, cov_from_samples,
-histogram_density).
-Changes vs origin:
-- moved, not rewritten: every function body is numerically identical to its
-  source; comments converted to docstrings noting which case uses each
-  estimator;
-- dropped the pieces that are wave physics rather than estimators
-  (dispersion, modal_propagator stay in the linear-wave case) and the inert
-  reduced-L63 / Lorenz-96 case-b statistic assemblers and the display-only
-  smooth_density (case-specific or plotting-adjacent, not shared primitives).
-
 Assembly of these primitives into a case's observation vector (block order,
 lags, bands, normalisation choices) lives in the case folders; only the
 case-agnostic estimators live here.
