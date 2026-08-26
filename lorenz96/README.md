@@ -107,33 +107,3 @@ Base seed `S0 = 31`.  All streams are disjoint `default_rng` seed blocks:
 Common random numbers: within one EKI iteration every ensemble member uses
 the SAME seed set `S(n, ·)`, so member differences reflect parameters rather
 than noise draws; the set changes every iteration.
-
-## Changes vs source tree
-
-Sources: `1. Reproduce_papers/Lorenz96/code/spec_case_a.py` (driver) and
-`1. Reproduce_papers/Lorenz96/code/lorenz96_common.py` (machinery); each
-module's docstring carries the full change list.  Summary:
-
-- The spec EKI loop (`eki_spec.run_eki_spec`) is replaced by the shared
-  engine `algorithms.eki.run_eki` (ensemble-evaluator pattern,
-  `stop_rel_tol = 0.01`, `stop_patience = 1`, perturbed observations,
-  absolute 1e-8 jitter — the same gain solve as the origin).  The `Phi` path
-  is bit-identical to the origin loop (Cholesky whitening of the exact Gamma,
-  the `eki_spec._phi` construction, no regularisation — the jitter conditions
-  the Kalman-gain solve only), so reported `Phi` values reproduce the origin
-  exactly given identical forward outputs.  One documented engine-level
-  difference: a run that exhausts `n_iter` evaluates the final post-update
-  ensemble once more, so `phi_final` then refers to the reported ensemble.
-- Gamma / N_G calibration / latent clip / CRN seeds come from
-  `algorithms.gamma` and `algorithms.eki` (numerically identical to the
-  origin `eki_spec`).
-- The GP representer weights are built via `algorithms.gpr` (identical
-  solve).
-- The near-optimum N_G probe parameter (the frozen v12 production fit) is
-  embedded as a constant instead of being loaded from the reproduction
-  tree's `result_data`, so this folder is self-contained.
-- Legacy code paths deleted rather than shipped: the frozen-protocol
-  reproduction pipeline (`main()`/`run_case_cli`), the unified-Gamma
-  (`Cov_ref + diag(var_fwd)`) convention, case (b) machinery, and the entire
-  plotting/bundle layer (`lorenz_plots`, `covariance`, `protocol`,
-  `run_manifest`).  All Chinese comments translated; all data saving kept.
