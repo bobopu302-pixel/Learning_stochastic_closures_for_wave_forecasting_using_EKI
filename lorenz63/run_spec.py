@@ -1,38 +1,5 @@
 """Noisy Lorenz 63 under EKI_algorithm_spec_2026-08-23.md -- PARALLEL driver.
 
-Origin: 1. Reproduce_papers/Lorenz63/code/spec_l63.py
-Changes vs origin:
-- eki_spec.run_eki_spec replaced by algorithms.eki.run_eki: the spec loop is
-  reproduced through the engine's injection points (ensemble_evaluator with
-  CRN seeds from algorithms.eki.crn_seeds -- identical arithmetic to
-  eki_spec.crn_seeds -- and N_G-realisation averaging over the shared worker
-  pool; clip_latent as a post_update hook; stop_rel_tol=PHI_TOL with
-  stop_patience=1 for the spec stopping rule; jitter_mode="absolute" to match
-  the legacy gain solve C^GG + Gamma + 1e-8 I).  The Phi path is bit-identical
-  to the legacy eki_spec._phi (the same Cholesky whitening of the exact Gamma,
-  no regularisation -- the jitter conditions the Kalman-gain solve only), so
-  reported Phi values reproduce the legacy loop exactly given identical
-  forward outputs.  One declared engine-level difference: when the run
-  exhausts n_iter without triggering the stopping rule, run_eki evaluates the
-  final post-update ensemble once more, so the saved histories then carry one
-  extra evaluation (the legacy loop left that ensemble unevaluated);
-- eki_spec.build_gamma / calibrate_n_g / clip_latent replaced by their
-  algorithms.gamma / algorithms.eki ports (numerics identical);
-- gpr.make_gp_mean_function replaced by algorithms.gpr.make_gp_mean_from_theta
-  (same packed (values | nugget | amplitude | lengthscale) convention; the
-  returned callable still carries _gp_params for the numba fast path);
-- summary_statistics.centered_first_second_moments now imported from
-  algorithms.statistics;
-- simulate_lorenz63 now imported from the local simulator.py (extracted from
-  run_lorenz63.py);
-- near_optimum_raw no longer loads learned_parameters.npz from the archived
-  run 20260823T140932127263Z_paper_8ad6802b51; the per-fit ensemble means it
-  produced are embedded as constants so this release is self-contained;
-- seeds_history is recorded by the evaluator (one CRN seed set per ensemble
-  evaluation) instead of by the engine;
-- comments/docstrings polished; spec constants, seed derivations, task
-  batching, and all npz/summary.json outputs unchanged.
-
 Four fits, exactly as in the paper: fixed g_L (ODE / SDE) and GP g_L
 (ODE / SDE).  Spec conventions:
 
@@ -44,8 +11,7 @@ Four fits, exactly as in the paper: fixed g_L (ODE / SDE) and GP g_L
   G(theta) : mean of N_G forward runs of length T_G = T_y, common random numbers
   EKI      : spec section 2, stop on the relative change of Phi
 
-The full sample-covariance Gamma is the only scheme kept (2026-08-23
-decision); the diagonal variant was removed before this release.
+The full sample-covariance Gamma is the only scheme kept;
 
     python run_spec.py --workers 190        (run from this folder)
 """
