@@ -1,0 +1,6 @@
+# Runtime dependencies for the code_rp release.
+# Loose minimums; the release was verified under numpy 2.4.6 / scipy 1.17.1 /
+# numba 0.65.1 on CPython 3.12.  numba >= 0.60 is required for numpy 2.x ABI.
+numpy>=2.0
+scipy>=1.13
+numba>=0.60
