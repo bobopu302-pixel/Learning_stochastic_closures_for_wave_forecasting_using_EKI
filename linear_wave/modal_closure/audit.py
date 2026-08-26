@@ -24,23 +24,6 @@ This module answers three questions that the headline metrics in
 Nothing here writes to ``bundle.npz``, ``summary.json`` or
 ``derived_metrics.json``.  Outputs go to ``audit_metrics.json`` (machine
 readable) and ``audit_arrays.npz`` (every raw sample, for later tables).
-
-Origin: 2.Linear_wave_case/modal_closure/audit.py
-Changes vs origin:
-- the three figure builders (_figure_objective_calibration,
-  _figure_velocity_readout, _figure_spectral_leakage), their calls, the
-  report_figures/ directory handling and the matplotlib import are deleted
-  (no figures in this release); audit_metrics.json and audit_arrays.npz are
-  saved exactly as before;
-- the plot-style import from the old diagnostics module (colour constants and
-  _style) is deleted with the figures;
-- the diagnostic objective() is DE-regularised (release decision 2026-08-25,
-  uniform across the release): Phi = 0.5 r^T Gamma^-1 r with the EXACT Gamma,
-  no jitter anywhere in the objective.  The origin inflated the diagonal by a
-  relative 1e-8; the change is <= 1e-8 relative, far below the audit's
-  tolerances and every reported precision.  Regularisation now lives only in
-  the engine's Kalman-gain solve (algorithms.eki);
-- comments/docstrings polished; all other retained numerics untouched.
 """
 
 from __future__ import annotations

@@ -1,8 +1,4 @@
 """Dispersion-locked stochastic modal closure for broadband linear waves.
-
-Origin: 2.Linear_wave_case/modal_closure/__init__.py
-Changes vs origin:
-- provenance docstring added; BLAS/OpenMP pinning and re-exports unchanged.
 """
 
 # Pin the BLAS/OpenMP thread count BEFORE numpy is imported anywhere in this

@@ -1,13 +1,5 @@
 """Wave physics for the linear-wave closure: dispersion relation and the exact
 Ornstein-Uhlenbeck modal propagator.
-
-Origin: 2.Linear_wave_case/modal_closure/numerics.py
-Changes vs origin:
-- the summary-statistic estimators (normalized_autocorr, gauge_acf, xcorr_pair,
-  cross_corr, band_energy_spectrum) moved to the shared package
-  algorithms.statistics (numerically identical there); this module keeps only
-  what knows it is a wave;
-- comments/docstrings polished.
 """
 
 from __future__ import annotations

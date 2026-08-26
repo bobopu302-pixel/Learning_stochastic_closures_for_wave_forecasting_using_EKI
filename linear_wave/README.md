@@ -1,6 +1,10 @@
 # Linear wave case: dispersion-locked stochastic modal closure
 
-Reproduction code for **thesis Chapter 4**: a broadband linear wave field
+Reproduction code for **thesis Chapter 4's modal-closure COMPANION experiment**
+(it backs Figure 4.3(c)'s M=10/M=25 truth-side curves; the Chapter 4 MAIN
+results — figs 4.1–4.2, table 4.1, the long-run validation — come from the GP
+closure in [`../linear_wave_gp/`](../linear_wave_gp/README.md)): a broadband
+linear wave field
 (100 random-frequency components, 10 gauges) closed by a ten-mode stochastic
 modal model whose frequencies are fixed by the finite-depth dispersion relation
 and whose per-mode damping `delta_j` and noise amplitude `sqrt(sigma_j)` are

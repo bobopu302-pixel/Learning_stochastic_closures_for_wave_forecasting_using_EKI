@@ -1,7 +1,4 @@
 """Random-phase truth generator: a 100-component broadband linear wave field.
-
-Origin: 2.Linear_wave_case/modal_closure/truth.py
-Changes vs origin: comments/docstrings only -- numerics identical.
 """
 
 from numbers import Integral

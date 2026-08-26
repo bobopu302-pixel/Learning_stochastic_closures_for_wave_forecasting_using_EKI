@@ -2,45 +2,6 @@
 (thesis Chapter 4): truth spectrum, 38-dim statistics vector, y/Gamma build,
 N_G calibration, forward model, parallel evaluation, and the spec-2026-08-23
 EKI run.
-
-Origin: 2.Linear_wave_case/modal_closure/experiment.py
-Changes vs origin:
-- the EKI engine is now imported from the shared package (algorithms.eki);
-  modal_closure/eki.py is removed.  The shared engine was built FROM that
-  file, so the call is drop-in: identical signature, identical defaults
-  (jitter_mode='relative' is the wave convention).  One declared behaviour
-  change (release decision 2026-08-25): the shared engine computes Phi with
-  the EXACT Gamma (Cholesky whitening; jitter conditions the Kalman-gain
-  solve only), while the origin engine inflated the Gamma diagonal by a
-  relative 1e-8 in the objective solve too -- so a fresh run's phi_history
-  can differ from the archived frozen bundle at <= 1e-8 relative (below all
-  quoted precisions and audit tolerances; the ensemble trajectory is
-  unchanged, and the archived bundle values are read, never recomputed);
-- the statistic estimators (normalized_autocorr, cross_corr,
-  band_energy_spectrum) are imported from algorithms.statistics instead of
-  the local numerics module, which now keeps only the wave physics;
-- the diagonal-Gamma variance estimate delegates to
-  algorithms.gamma.build_gamma(structure='diagonal') -- the same ddof=1
-  per-component sample variance, plus the spec's rank/condition diagnostics
-  recorded into the parts dict.  The N_G calibration stays LOCAL:
-  algorithms.gamma.calibrate_n_g implements the literal max-ratio rule with a
-  near-degeneracy drop, while this case applies the rule at a quantile of the
-  ratio (see calibrate_forward_averaging's docstring for why the literal rule
-  asks for N_G ~ 1e5 here) and filters sentinel-failed probe runs -- not
-  call-compatible;
-- a sys.path bootstrap to the code_rp root is added before the algorithms
-  import so that spawned worker processes, which re-import this module,
-  resolve the shared package too;
-- the plotting import and the replot() call after save_bundle are removed
-  (no figures in this release); the bundle writer is now bundle_io.save_bundle;
-- deleted the legacy per-member seeding branch of _ensemble_evaluator
-  (common_random=False, streams keyed by (base, iteration, member)): the
-  shipped spec run always uses common random numbers, and this release does
-  not carry dead code paths;
-- deleted the unused ``seed`` parameter of fit() and the EKI_FIT_SEED
-  constant it was fed from: the spec run draws every stream from the named
-  disjoint seed blocks, and the parameter had no effect;
-- comments/docstrings polished; all numerics untouched.
 """
 
 from __future__ import annotations

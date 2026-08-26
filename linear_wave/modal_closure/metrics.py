@@ -1,24 +1,6 @@
 """Bundle validation and derived validation metrics for a completed modal
 closure run (no figures).
 
-Origin: 2.Linear_wave_case/modal_closure/diagnostics.py
-Changes vs origin:
-- renamed from diagnostics.py; only the computation half is kept (load_bundle,
-  validate_bundle, band_energy_spectrum_like, compute_metrics, write_metrics
-  and their private helpers).  The matplotlib import, the plot style/colour
-  constants, the histogram-smoothing helpers and every figure function
-  (make_report_figures and the eleven _*_figure builders) are deleted --
-  this release ships computation and data only;
-- the statistic estimators (band_energy_spectrum, cross_corr, gauge_acf) are
-  imported from the shared algorithms.statistics instead of the local
-  numerics module;
-- the derived_metrics.json key "objective.selected_member" is renamed to
-  "objective.reported_final_ensemble_mean": the stored value is the objective
-  of the FINAL-ENSEMBLE-MEAN output (2026-08-23 spec reporting, no member
-  selection), and the old name was a leftover misnomer.  No shipped code read
-  the old key, so the rename is safe; a JSON written by the original tree
-  differs only in this key name.
-
 Note the related bundle-array naming trap: the bundle key ``sde_best`` also
 holds the final-ensemble mean, not a selected member.  Bundle keys are NOT
 renamed, so the archived frozen bundle still validates; see the README.

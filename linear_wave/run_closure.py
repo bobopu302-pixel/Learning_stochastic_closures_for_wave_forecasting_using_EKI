@@ -1,15 +1,4 @@
 """Command-line entry point for the modal closure workflow (thesis Chapter 4).
-
-Origin: 2.Linear_wave_case/run_closure.py
-Changes vs origin:
-- added the sys.path bootstrap to the code_rp root so `from algorithms ...`
-  resolves when running from the case folder;
-- the --mode replot choice and every figure-related code path are removed
-  (this release ships computation and data saving only); replay now means
-  validate + write derived_metrics.json;
-- imports updated: metrics (renamed from diagnostics) instead of
-  diagnostics/plotting.
-
 Examples (run from the linear_wave case folder)
 -----------------------------------------------
 Validate a stored bundle and rewrite the derived metrics::
