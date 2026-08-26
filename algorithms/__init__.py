@@ -1,14 +1,4 @@
 """Shared algorithm layer for the dissertation cases (Lorenz, linear wave, vKdV).
-
-Origin: assembled from 2.Linear_wave_case/modal_closure,
-1. Reproduce_papers/common/code, and 3. KDV_nonlinear_case (see each module's
-provenance header).
-Changes vs origin: package assembly and re-exports only.
-
-Design rule: physics and observation-vector assembly live in the case
-folders; only case-agnostic algorithm code lives here.  Deliberately no BLAS
-thread pinning at import time -- that is a run-environment decision and stays
-in the case drivers.
 """
 
 from .eki import (
