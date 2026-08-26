@@ -14,12 +14,11 @@ estimated by ensemble Kalman inversion (EKI):
     dp_j = (-omega_j^2 q_j - delta_j p_j) dt + sqrt(sigma_j) dW_j,
     omega_j^2 = g k_j tanh(k_j h).
 
-This release ships the **2026-08-23 spec configuration actually used in the
+This release ships the ** spec configuration actually used in the
 thesis** and nothing else: log-space positive parameters, common random
 numbers, `G_hat` = mean of `N_G` forward runs, `Gamma = diag(var_ref)` from
 independent reference records (no forward term, no floor), final-ensemble-mean
-reporting, and the 1%-for-3-iterations stopping rule.  Legacy code paths were
-deleted, not disabled; each module's docstring records what was removed.
+reporting, and the 1%-for-3-iterations stopping rule. each module's docstring records what was removed.
 
 The EKI engine, the diagonal-Gamma estimator and the statistic estimator
 primitives come from the shared package `code_rp/algorithms/`
@@ -185,45 +184,3 @@ Lorentzian band leakage -- is the spectral accuracy to quote.
   final-ensemble-mean output and equals `objective.final_ensemble_mean`.  The
   key was renamed here because no shipped code consumed the old name.
 
-## Changes vs the source tree (`2.Linear_wave_case/`)
-
-- `modal_closure/eki.py` **removed**; the case now calls
-  `algorithms.eki.run_eki` (the shared engine was built from that file -- the
-  call is drop-in, and the default `jitter_mode='relative'` is this case's
-  convention).  `sys.path` is bootstrapped to the `code_rp` root in
-  `run_closure.py` and again at the top of `experiment.py` so spawned workers
-  resolve `algorithms` too.  One declared engine-behaviour change
-  (release decision 2026-08-25): the shared engine computes `Phi` with the
-  EXACT Gamma (Cholesky whitening; `jitter` conditions the Kalman-gain solve
-  only), whereas the archived frozen run's engine regularised the objective
-  solve by a relative 1e-8 diagonal inflation.  A fresh recompute's
-  `phi_history` may therefore differ from the archived bundle at `<= 1e-8`
-  relative -- far below every quoted precision and audit tolerance; the
-  ensemble trajectory is unaffected (the gain solve is unchanged), and the
-  archived bundle values themselves are untouched (`metrics.py` and the
-  validators read the stored `Phi`, they never recompute it).
-- `modal_closure/numerics.py` keeps only the wave physics; the estimators
-  (`normalized_autocorr`, `gauge_acf`, `xcorr_pair`, `cross_corr`,
-  `band_energy_spectrum`) are imported from `algorithms.statistics`.
-- The diagonal-Gamma variance estimate delegates to
-  `algorithms.gamma.build_gamma(structure='diagonal')`; the **N_G calibration
-  stays local** because this case applies the spec rule at the 75th percentile
-  of `var_fwd/var_ref` (the literal max rule would demand `N_G ~ 1e5` due to
-  structurally tiny `var_ref` on low-energy bands) and filters sentinel-failed
-  probe runs -- not compatible with `algorithms.gamma.calibrate_n_g`.
-- `plotting.py` renamed to `bundle_io.py` (only ever wrote the bundle);
-  `replot()` deleted.  `diagnostics.py` renamed to `metrics.py`, keeping only
-  the computation half (no matplotlib, no figure builders).  `audit.py` lost
-  its three figure functions; all JSON/NPZ outputs unchanged.
-- `run_closure.py --mode replot` removed; `replay` = validate + metrics.
-- Deleted dead/legacy paths (recorded per file in the module docstrings): the
-  per-member seeding branch of `_ensemble_evaluator`, the unused `seed`
-  parameter of `fit()` and the `EKI_FIT_SEED` constant.
-- **Not shipped**: `run_server.sh` (it passes a `--gamma-full` flag that
-  `run_closure.py` does not implement -- running it would crash at the first
-  stage; use the commands above directly), the `results/` trees, the
-  `beyond_lag` scripts, `tools/tectonic.exe`, `report/`, and
-  `test_modal_closure.py` (regresses against the archived results tree, which
-  is not part of this release).
-- All comments and docstrings are in English; numerics of every retained code
-  path are untouched.
