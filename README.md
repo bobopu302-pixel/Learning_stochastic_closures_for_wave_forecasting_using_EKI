@@ -85,10 +85,4 @@ has a "what gets saved where" section.
 
 ## Provenance
 
-This code accompanies the MSc dissertation; the original development trees
-(`1. Reproduce_papers/`, `2.Linear_wave_case/`, `3. KDV_nonlinear_case/`) are
-not included. Every Python file starts with a provenance docstring recording
-its origin path under `research_project/` and the changes made for this
-release (for most library files: comments/docstrings only; the case READMEs
-summarise the larger changes, such as rewiring the drivers onto the shared
-EKI engine and deleting legacy/plotting code paths).
+This code accompanies the MSc dissertation.
