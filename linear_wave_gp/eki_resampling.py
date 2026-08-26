@@ -28,12 +28,6 @@ behaviour — but not this run's, for two concrete reasons:
    precision — but the frozen numbers are frozen, so the construction that
    produced them is kept verbatim rather than approximated.
 
-Everything else (perturbed-observations update, J-1 covariances, the
-2026-08-23 stopping rule, the final extra evaluation with rng-state restore)
-is the same mathematics as algorithms.eki.run_eki.  This file is NOT a fork
-of the shared engine: it is the archived engine of one frozen run, shipped
-next to the run's driver so that run stays reproducible from the file that
-produced it.
 """
 from __future__ import annotations
 
