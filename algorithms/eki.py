@@ -1,76 +1,4 @@
 """Ensemble Kalman inversion (EKI) engine shared by every dissertation case.
-
-Origin: 2.Linear_wave_case/modal_closure/eki.py
-Changes vs origin:
-- added optional injection hooks (sentinel_row_fn, failed_mask_fn, post_update,
-  iteration_callback) and a jitter_mode switch, all defaulting to the exact
-  original behaviour (see "Extensions vs the linear-wave engine" below);
-- added the CRN seed helpers crn_seed / crn_seeds, ported from
-  1. Reproduce_papers/common/code/eki_spec.py (identical arithmetic);
-- added clip_latent, ported from eki_spec.py, as a ready-made post_update
-  building block for log-parameterised cases;
-- the objective solve is DE-regularised (release decision 2026-08-25): Phi is
-  computed by Cholesky-whitening with the EXACT Gamma, ported from
-  eki_spec._phi, so the reported discrepancy never contains a numerical
-  conditioning term; ``jitter`` now applies to the Kalman-gain solve only.
-  (The origin regularised both solves; the effect on Phi was <= 1e-8 relative.)
-- comments/docstrings translated and polished; core update numerics untouched.
-
-Extensions vs the linear-wave engine
-------------------------------------
-Each addition is keyword-only and defaults to the original behaviour:
-
-- ``sentinel_row_fn(observation, gamma_diag) -> (q,) row``: when given, every
-  failed member's output row is REPLACED by this row before it enters the
-  history, the objective and the Kalman update.  The vKdV convention is
-  ``lambda y, g: y + 10.0 * np.sqrt(g)`` (a large fixed penalty in error-bar
-  units).  Default ``None`` keeps the linear-wave behaviour: failed rows are
-  only counted, never replaced.
-- ``failed_mask_fn(outputs) -> (J,) bool mask``: the case decides what
-  "failed" means (NaNs, blow-up flags, out-of-range statistics...).  Default:
-  a row is failed when it is identically equal to ``sentinel_value`` (the
-  original constant-sentinel detection); with ``sentinel_value=None`` nothing
-  is ever flagged.
-- ``post_update(thetas, iteration) -> thetas``: applied after each Kalman
-  update (and after ``bounds`` clipping).  This is the clip hook: the Lorenz
-  cases pass ``clip_latent``-based guards, the vKdV spec runs pass their own
-  latent clip.  Default ``None`` applies nothing.
-- ``iteration_callback(state: dict) -> None``: called at the end of every
-  iteration in which a Kalman update was applied, with
-  ``{iteration, thetas, outputs, objectives, mean_objective, rng}`` where
-  ``thetas`` is the POST-update ensemble.  Intended for per-iteration
-  checkpointing of long runs (write thetas + the rng state, support
-  ``--resume``).  When the stopping rule fires, the loop exits before the
-  update, so no callback fires for that terminal evaluation.  Default
-  ``None``.
-- ``jitter_mode``: ``'relative'`` (default, the wave convention: diagonal
-  scaled by ``1 + jitter``, scale-free) or ``'absolute'`` (the legacy
-  Lorenz/vKdV convention: ``matrix + jitter * I``).  Applied to the
-  Kalman-gain solve ONLY; the objective is always computed with the exact
-  Gamma.
-
-Conventions
------------
-- Empirical covariances use the unbiased ``J - 1`` normalisation.
-- The objective is the exact ``Phi = 0.5 ||Gamma^{-1/2}(y - G)||^2``, computed
-  by whitening with the Cholesky factor of the un-regularised Gamma (the
-  eki_spec._phi construction).  Regularisation (``jitter``/``jitter_mode``)
-  conditions the Kalman-gain solve only.
-- Perturbed observations: with ``perturb_observations=True`` each member sees
-  ``y + eta_j``, ``eta_j ~ N(0, Gamma)`` (drawn from ``observation_rng`` when
-  given, so observation noise can occupy its own seed block).
-- Log-space parameters are the CALLER's responsibility: this engine evolves
-  whatever coordinates it is handed; encode/decode with
-  ``algorithms.parameterization`` in the case driver.
-- The reported estimate is the CALLER's convention.  ``EKIResult`` records
-  both the final ensemble (spec-2026-08-23 reporting: ``final_mean`` +/-
-  ``final_sd``, no selection) and the best-objective iteration/member (legacy
-  paper-figure selection); the case decides which to publish.
-- Stopping rule (2026-08-23 spec): checked BEFORE the update, on the relative
-  change of the ensemble-mean-output objective, so the ensemble reported at
-  the end is the one whose objective satisfied the rule.
-- After the last Kalman update the new ensemble is evaluated once more (with
-  the rng state restored afterwards) so it can also compete for "best".
 """
 
 from __future__ import annotations
@@ -263,20 +191,6 @@ def _regularise(matrix: Array, jitter: float, mode: str = "relative") -> Array:
     Used for ``C^GG + Gamma`` only -- the objective is never regularised (see
     :func:`_objective_values`).
 
-    ``mode='relative'`` (the wave convention) scales the diagonal by
-    ``1 + jitter``.  An absolute ``matrix + jitter * I`` assumes every diagonal
-    entry is O(1).  Under the 2026-08-23 spec ``Gamma = diag(var_ref)`` spans
-    1.7e-12 on the 1.8 Hz band to 0.98 on the elevation variance, so an
-    absolute jitter of 1e-8 would be 5875x the entire error bar of the
-    smallest statistic -- a discrepancy floor reintroduced by the back door on
-    exactly the low-energy bands the spec is most delicate about.  (When the
-    origin engine still regularised the objective solve too, that absolute
-    jitter moved the reported objective by 37% on the wave case.)  Scaling the
-    diagonal instead is scale-free: it conditions the solve without asserting
-    an error bar the error model does not have.
-
-    ``mode='absolute'`` (the legacy Lorenz/vKdV convention) adds
-    ``jitter * I``, matching ``eki_spec.run_eki_spec``'s gain solve.
     """
 
     if jitter <= 0.0:
@@ -296,12 +210,6 @@ def _objective_values(
     outputs: Array, observation: Array, gamma_chol: Array
 ) -> Array:
     """Paper objective Phi = 0.5 ||Gamma^{-1/2}(G - y)||^2, one value per row.
-
-    Whitening with the lower Cholesky factor of the EXACT Gamma (no explicit
-    inverse, no regularisation), byte-for-byte the ``eki_spec._phi``
-    construction: Phi is the reported physical discrepancy measure, so no
-    numerical conditioning term may enter it.  The ``jitter`` parameter
-    conditions the Kalman-gain solve only.
     """
 
     from scipy.linalg import solve_triangular
@@ -407,7 +315,7 @@ def run_eki(
     """Ensemble Kalman inversion with perturbed observations.
 
     ``stop_rel_tol``/``stop_patience`` implement the stopping rule of the
-    2026-08-23 algorithm spec: leave the loop once the relative change of the
+     algorithm spec: leave the loop once the relative change of the
     ensemble-mean objective has stayed below the tolerance for ``stop_patience``
     consecutive iterations.  ``None`` (the default) runs the fixed ``n_iter``.
 
@@ -513,7 +421,7 @@ def run_eki(
             best_member_parameter = theta[member_index].copy()
             best_member_output = outputs[member_index].copy()
 
-        # Stopping rule (2026-08-23 spec): the relative change of the
+        # Stopping rule: the relative change of the
         # ensemble-mean objective, judged over consecutive iterations.  Checked
         # here, before the update, so that the ensemble reported at the end is
         # the one whose objective satisfied the rule.
