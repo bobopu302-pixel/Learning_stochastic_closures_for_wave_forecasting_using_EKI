@@ -1,28 +1,5 @@
 """Two-scale Lorenz-96 truth system and closed GP-closure model (numba simulators).
 
-Origin: 1. Reproduce_papers/Lorenz96/code/lorenz96_common.py
-Changes vs origin:
-- extracted the simulator library only: the two numba simulators
-  (simulate_two_scale_lorenz96, simulate_closed_lorenz96_gp_fast) with their
-  kernels, the pure-numpy reference RHS/RK4 pair they were verified against,
-  gp_weights_from_theta, the truth-trajectory disk cache, and the shared
-  truth-system constants;
-- gp_weights_from_theta now delegates to algorithms.gpr.make_gp_mean_from_theta
-  (same representer solve (K + (nugget^2 + 1e-8) I) w = v; the shared module
-  additionally validates that nugget/amplitude/lengthscale are finite and
-  strictly positive, which the log parameterization guarantees anyway);
-- cached_truth_trajectory is compute_truth_eval simplified: the cache is keyed
-  by every simulation parameter (including the seed) instead of a frozen
-  protocol hash + settings dict, and takes an explicit cache path;
-- deleted the legacy orchestration: main(), run_case_cli(), build_case_settings
-  (frozen-protocol coupling), the plotting bundle assembly, case-(b) helpers
-  (case_b_x1_series, component statistics, INV_BINS_CASE_B), figure-17 scatter
-  sampling, fit_gamma/unified-Gamma machinery, and the lorenz_plots /
-  covariance / protocol / run_manifest imports -- this release ships the
-  2026-08-23 spec configuration only (see run_spec.py);
-- case_a_statistics and the theta packing/ensemble helpers moved to
-  observations.py (they are case definitions, not simulator machinery);
-- comments translated/tightened; simulator numerics untouched.
 """
 
 from __future__ import annotations
