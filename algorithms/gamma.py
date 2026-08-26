@@ -1,10 +1,4 @@
-"""Observation-error covariance (Gamma) and N_G calibration -- the
-spec-2026-08-23 reference implementation.
-
-Origin: 1. Reproduce_papers/common/code/eki_spec.py (build_gamma,
-GammaEstimate, calibrate_n_g, CalibrationResult and the _neff_inflation
-helper; the EKI loop itself lives in algorithms/eki.py).
-Changes vs origin: comments/docstrings only -- numerics identical.
+"""Observation-error covariance (Gamma) and N_G calibration.
 
 Spec summary (EKI_algorithm_spec_2026-08-23.md):
 
