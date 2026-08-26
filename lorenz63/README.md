@@ -102,32 +102,3 @@ One master seed `S0 = 7`; every random object gets a disjoint block:
 "gp_sde")`. CRN: within one EKI iteration every ensemble member uses the SAME
 seed set, so member differences reflect parameters, not noise draws; the set
 changes every iteration.
-
-## Changes vs source tree
-
-Sources: `1. Reproduce_papers/Lorenz63/code/spec_l63.py` (driver) and
-`1. Reproduce_papers/Lorenz63/code/run_lorenz63.py` (simulator). Per-file
-details are in each module's provenance docstring; the highlights:
-
-- `eki_spec.run_eki_spec` replaced by `algorithms.eki.run_eki`, configured to
-  reproduce the spec loop: CRN-seeded `ensemble_evaluator` with N_G
-  averaging over the worker pool, `clip_latent` as a `post_update` hook,
-  `stop_rel_tol=0.01` with `stop_patience=1`, `jitter_mode="absolute"`
-  matching the legacy gain solve. The `Phi` path is bit-identical to the
-  legacy `eki_spec._phi` (Cholesky whitening of the exact Gamma, no
-  regularisation — the jitter conditions the Kalman-gain solve only), so
-  reported `Phi` values reproduce the legacy loop exactly given identical
-  forward outputs. One declared engine-level difference: a run that exhausts
-  `n_iter` without stopping gets one extra evaluation of its final ensemble
-  appended to the histories.
-- `eki_spec.build_gamma` / `calibrate_n_g` / `clip_latent` are the identical
-  ports in `algorithms.gamma` / `algorithms.eki`.
-- GP closure built by `algorithms.gpr.make_gp_mean_from_theta` (same packed
-  parameter layout; the `_gp_params` numba fast path is preserved).
-- The near-optimum probe parameters are embedded as constants (from the
-  archived run `20260823T140932127263Z_paper_8ad6802b51`) instead of loading
-  that archive's `learned_parameters.npz`, so this release is self-contained.
-- `simulator.py` carries only the simulation library from `run_lorenz63.py`;
-  the legacy experiment driver and its plotting/manifest machinery were
-  dropped. No figures are produced anywhere in this folder — all result data
-  is saved to npz/json.
