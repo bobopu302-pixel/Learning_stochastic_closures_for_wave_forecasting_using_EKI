@@ -1,7 +1,6 @@
 # Learning stochastic closures for coastal wave forecasting using ensemble Kalman inversion — code release
 
-Code release accompanying the MSc dissertation. One statistics-based
-calibration framework — observation vector `y` built from long-run statistics,
+One statistics-based calibration framework — observation vector `y` built from long-run statistics,
 noise covariance `Gamma` estimated from independent reference records, forward
 map `G(theta)` averaged over `N_G` common-random-number runs, parameters
 estimated by ensemble Kalman inversion (EKI) — is instantiated on four systems
@@ -11,9 +10,7 @@ thesis Chapter 3), a **broadband linear wave field** closed by a
 dispersion-locked stochastic modal model (Chapter 4), and a **stochastically
 forced variable-depth KdV** coastal twin whose terrain-law noise parameters and
 nonlinear tendency are learned in a stepwise ladder (Chapter 5). All four
-cases run the same 2026-08-23 algorithm specification (log-space positive
-parameters, CRN, `N_G` forward averaging, reference-only `Gamma`, relative-`Phi`
-stopping, final-ensemble-mean reporting) and share a single algorithm layer,
+cases run the same algorithm specification and share a single algorithm layer,
 `algorithms/`, so a convention is defined once and used everywhere.
 
 ## Repository map
@@ -69,8 +66,7 @@ failure hooks, stopping rule, clip hook, checkpoint callback). Every hook
 defaults to off, so calling `run_eki` with only the original arguments
 reproduces the linear-wave engine's ensemble trajectory bit for bit. One
 uniform convention holds everywhere: the objective `Phi` is always computed
-with the exact `Gamma` (Cholesky whitening — no regularisation ever enters
-`Phi`), and the `jitter` setting conditions the Kalman-gain solve only; see
+with the exact `Gamma` , and the `jitter` setting conditions the Kalman-gain solve only; see
 [`algorithms/README.md`](algorithms/README.md) for the full contract.
 
 ## Data outputs
