@@ -16,7 +16,6 @@ cases run the same algorithm specification and share a single algorithm layer,
 ## Repository map
 
 ```
-code_rp/
   algorithms/        shared algorithm layer: EKI engine, Gamma / N_G estimators,
                      GP conditional mean, log parameterization, statistics
   lorenz63/          noisy Lorenz-63 reproduction, four closure fits   (Ch. 3)
@@ -24,6 +23,7 @@ code_rp/
   linear_wave/       dispersion-locked stochastic modal closure        (Ch. 4)
   nonlinear_wave/    coastal vKdV stochastic-closure ladder S1 -> S2   (Ch. 5)
   requirements.txt   runtime dependencies (numpy, scipy, numba)
+  result/            all result calculated from code above
 ```
 
 ## Install
